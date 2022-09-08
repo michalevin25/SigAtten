@@ -68,9 +68,7 @@ Speech and Signal Processing, May 2011, Czech Republic. pp.11-21. ffhal-00604385
 
 **Hilbert envelope detection**: 
 
-The Hilbert transform is part of a signal processing technique for amplitude demodulation. The Hilbert transform of a signal x(t) is defined as
- 
-where * stands for convolution. Using equation (2), we can define the analytic signal z(t) as 
- 
-The analytic signal is useful for envelope detection since its modulus r(t) and time derivative of the phase θ(t) can serve as estimates for the amplitude envelope and instantaneous frequency of x(t) under certain conditions. Notably, if the Hilbert transform of x(t) is equal to its quadrature signal [1], then the estimates are equal to the actual information signals [1]. Synthetic (i.e., AM) signals can be constructed to have this property, but there is no reason to expect that acoustic musical instrument sounds or speech also present it. A more realistic condition is verified when we are dealing with narrowband signals [14], which is rarely the case for musical instrument sounds and speech. The analytic signal can be effectively used to extract the amplitude envelope of individual partials if applied to each frequency bin of the STFT, but when applied to the whole signal it is equivalent to trying to demodulate several AM signals at the same time, so we use it as half-wave rectifier in this work.
+> The Hilbert transform is part of a signal processing technique for amplitude demodulation [...] The analytic signal is useful for envelope detection since its modulus r(t) and time derivative of the phase θ(t) can serve as estimates for the amplitude envelope and instantaneous frequency of x(t) under certain conditions[...] The analytic signal can be effectively used to extract the amplitude envelope of individual partials if applied to each frequency bin of the STFT, but when applied to the whole signal it is equivalent to trying to demodulate several AM signals at the same time, so we use it as half-wave rectifier in this work.
+
+
 
