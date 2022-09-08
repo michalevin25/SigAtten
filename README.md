@@ -1,0 +1,1 @@
+Vocoder based on sigmoid attenuation 
