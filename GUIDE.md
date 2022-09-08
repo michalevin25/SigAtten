@@ -21,7 +21,6 @@ ___
 #### Step 1:
 The noisy speech signal is bandpass filtered into 16 channels 
 #### Step 2:
-hi
 The envelopes are detected in each channel after full-wave rectification and low-pass filtering (200 Hz, sixth-order Butterworth).
 #### Step 3:
  The noisy envelopes in each channel are multiplied by channel-specific weighting functions taking values in
