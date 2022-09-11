@@ -32,10 +32,11 @@ def create_channels(channels, f1, f2, sr, order, current_signal):
     return channels_sig
 
 
-def butterworth_filter(filter_freq, sr, filter_order, filter_type, sig_to_filter):
-    filter_freq = filter_freq   # normalized freq for filter
-    b, a = signal.butter(filter_order, filter_freq, filter_type)  # consturct lpf butterworth filter
+def butterworth_filter(filter_freq, filter_order, filter_type, sig_to_filter):
+
+    b, a = signal.butter(filter_order, filter_freq, filter_type, analog=True)  # consturct lpf butterworth filter
     lpf_sig = signal.filtfilt(b, a, sig_to_filter, axis=0)  # apply filter to signal
+
     return lpf_sig
 
 
@@ -54,6 +55,10 @@ def env_detect(sig, filter_order, filter_freq, sr):
 
 """""
 def env_detect(sig):
+    #envelope detection - full wave rectification + LPF
+    # rect = np.absolute(sig)
+    # envelope = butterworth_filter(200, 6, 'low', rect)
+
     # envelope detection - absolute value of hilbert
     envelope = np.absolute(hilbert(sig))
 
