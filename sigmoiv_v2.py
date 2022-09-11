@@ -5,7 +5,6 @@ Created on Mon Aug 29 14:16:58 2022
 @author: micha
 """
 
-# step 1: create noisy signal by adding speech and noise together
 import scipy
 import librosa
 from scipy.io import wavfile
@@ -21,8 +20,6 @@ import pdb
 speech, sr = librosa.load('clean.wav')
 additive_noise, sr = librosa.load('noisy_white_3dB.wav')
 
-# testtest
-
 # create noise
 mean = 0
 std = 1
@@ -34,7 +31,7 @@ noisy_sig = speech + additive_noise
 
 # TODO: remove
 # noisy_sig = noisy_sig[:1000]
-channels = 1
+channels = 16
 f1 = 250
 f2 = 8000
 order = 256
@@ -53,8 +50,6 @@ noisy_envelope = np.transpose(noisy_envelope)
 noise_track_channels = create_channels(channels, f1, f2, sr, order, additive_noise)
 noise_track_env = env_detect(noise_track_channels)
 noise_track_env = noise_track_env[1000:, :]
-# TODO: remove
-# n = n[:1000]
 noise_track_env = noise_track_env.transpose()
 
 x_after_weights = np.zeros([channels, np.size(noisy_envelope, 1)])
@@ -96,7 +91,7 @@ lpf_x = np.zeros([channels, np.size(x_after_weights, 1)])
 for i in range(0, channels):
     lpf_x[i, :] = butterworth_filter(filter_freq=200,
                                      sr=sr,
-                                     filter_order=256,
+                                     filter_order=6,
                                      filter_type='low',
                                      sig_to_filter=x_after_weights[i, :]
                                      )
@@ -117,4 +112,8 @@ plt.plot(freqs, np.abs(X))
 
 final_signal = np.sum(lpf_x, axis=0)
 plt.plot(final_signal)
-a=3
+plt.show()
+scipy.io.wavfile.write('final signal.wav', sr, final_signal*3)
+scipy.io.wavfile.write('noisy signal.wav', sr, noisy_sig)
+scipy.io.wavfile.write('noisy envelope.wav', sr, noisy_envelope.flatten()*5)
+scipy.io.wavfile.write('x_after_weights.wav', sr, np.sum(x_after_weights,axis=0)*5)
